@@ -51,10 +51,18 @@ protected:
     }
 };
 
+/*
 TEST_F(EmptyTree, GetRoot){
   EXPECT_EQ(tree.GetRoot(), nullptr);
   BinaryTree();
   EXPECT_EQ(tree.GetRoot(), nullptr);
+}
+ */
+
+TEST_F(EmptyTree, InsertNode){
+  std::pair <bool, void *> node_1 = tree.InsertNode(1);
+  EXPECT_EQ(node_1.first, true);
+  EXPECT_NE(node_1.second, nullptr);
 }
 
 TEST_F(EmptyTree, DeleteNode){
@@ -65,6 +73,7 @@ TEST_F(EmptyTree, FindNode){
   EXPECT_EQ(tree.FindNode(1), nullptr);
 }
 
+/*
 TEST_F(EmptyTree, GetLeafNodes){
   std::vector<Node_t *> outLeafNodes;
   tree.GetLeafNodes(outLeafNodes);
@@ -82,60 +91,53 @@ TEST_F(EmptyTree, GetNonLeafNodes){
   tree.GetLeafNodes(outNonLeafNodes);
   EXPECT_EQ(&outNonLeafNodes[0], nullptr);
 }
-
-TEST_F(EmptyTree, InsertNode){
-  std::pair <bool, void *> node_1 = tree.InsertNode(1);
-  EXPECT_EQ(node_1.first, true);
-  EXPECT_NE(node_1.second, nullptr);
-}
-
-TEST_F(EmptyTree, Insert_Find_Delete){
-  ASSERT_EQ(tree.FindNode(1), nullptr);
-  
-  std::pair <bool, void *> node_1 = tree.InsertNode(1);
-  ASSERT_EQ(node_1.first, true);
-  EXPECT_NE(node_1.second, nullptr);
-  EXPECT_EQ(node_1.second, tree.GetRoot());
-  EXPECT_EQ(tree.FindNode(1), node_1.second);
-  
-  EXPECT_TRUE(tree.DeleteNode(1));
-  EXPECT_FALSE(tree.DeleteNode(1));
-  EXPECT_EQ(tree.FindNode(1), nullptr);
-  
-}
+ */
 
 
-
+/*
 TEST_F(NonEmptyTree, GetRoot){
   EXPECT_NE(tree.GetRoot(), nullptr);
 }
+ */
 
-TEST_F(NonEmptyTree, InsertNode){
-  std::pair <bool, void *> node_20 = tree.InsertNode(20);
-  ASSERT_TRUE(node_20.first);
-  ASSERT_NE(node_20.second, nullptr);
-  
-  void *pNode_1 = tree.FindNode(1);
+TEST_F(NonEmptyTree, InsertExistingNode){
   std::pair <bool, void *> node_1 = tree.InsertNode(1);
   EXPECT_FALSE(node_1.first);
-  EXPECT_EQ(pNode_1, node_1.second);
+  EXPECT_EQ(node[0].second, node_1.second);
+}
+
+TEST_F(NonEmptyTree, InsertNode){
+  std::pair <bool, void *> node_10 = tree.InsertNode(10);
+  ASSERT_TRUE(node_10.first);
+  ASSERT_NE(node_10.second, nullptr);
+}
+
+TEST_F(NonEmptyTree, DeleteNonExistantNode){
+  EXPECT_FALSE(tree.DeleteNode(10));
 }
 
 TEST_F(NonEmptyTree, DeleteNode){
+  EXPECT_NE(tree.FindNode(1), nullptr);
   EXPECT_TRUE(tree.DeleteNode(1));
   EXPECT_EQ(tree.FindNode(1), nullptr);
-  EXPECT_FALSE(tree.DeleteNode(1));
+}
+
+TEST_F(NonEmptyTree, FindNonExistantNode){
+  ASSERT_EQ(tree.FindNode(10), nullptr);
 }
 
 TEST_F(NonEmptyTree, FindNode){
-  //ASSERT_NE(tree.FindNode(1), nullptr);
   ASSERT_EQ(tree.FindNode(1), node[0].second);
-  
-  std::pair <bool, void *> node_20 = tree.InsertNode(20);
-  ASSERT_TRUE(node_20.first);
-  void *pNode_20 = node_20.second;
-  EXPECT_EQ(pNode_20, tree.FindNode(20));
+  /*
+  std::pair <bool, void *> node_10 = tree.InsertNode(10);
+  ASSERT_TRUE(node_10.first);
+  void *pNode_10 = node_10.second;
+  EXPECT_EQ(pNode_10, tree.FindNode(10));
+   */
 }
+
+
+
 
 
 /*** Konec souboru black_box_tests.cpp ***/
