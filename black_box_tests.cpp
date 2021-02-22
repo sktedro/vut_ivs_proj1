@@ -40,13 +40,24 @@ protected:
 
 class NonEmptyTree: public ::testing::Test{
 public:
-    std::pair<bool, void *> node[5];
-
+    std::pair<bool, Node_t*> node[5];
 protected:
     BinaryTree tree;
     virtual void SetUp(){
-      int keys[] = {1, 2, 3, 4, 5};
+      int keys[] = {0, 1, 2, 3, 4};
       for(int i = 0; i < 5; i++)
+        node[i] = tree.InsertNode(keys[i]);
+    }
+};
+
+class TreeAxioms: public ::testing::Test{
+public:
+    std::pair<bool, Node_t*> node[3];
+protected:
+    BinaryTree tree;
+    virtual void SetUp(){
+      int keys[] = {2, 1, 5};
+      for(int i = 0; i < 3; i++)
         node[i] = tree.InsertNode(keys[i]);
     }
 };
@@ -60,9 +71,10 @@ TEST_F(EmptyTree, GetRoot){
  */
 
 TEST_F(EmptyTree, InsertNode){
-  std::pair <bool, void *> node_1 = tree.InsertNode(1);
-  EXPECT_EQ(node_1.first, true);
+  std::pair <bool, Node_t*> node_1 = tree.InsertNode(1);
+  EXPECT_TRUE(node_1.first);
   EXPECT_NE(node_1.second, nullptr);
+  EXPECT_EQ(node_1.second->key, 1);
 }
 
 TEST_F(EmptyTree, DeleteNode){
@@ -100,34 +112,39 @@ TEST_F(NonEmptyTree, GetRoot){
 }
  */
 
-TEST_F(NonEmptyTree, InsertExistingNode){
-  std::pair <bool, void *> node_1 = tree.InsertNode(1);
+TEST_F(NonEmptyTree, InsertNode_Existing){
+  std::pair <bool, Node_t*> node_1 = tree.InsertNode(1);
   EXPECT_FALSE(node_1.first);
-  EXPECT_EQ(node[0].second, node_1.second);
+  ASSERT_NE(node_1.second, nullptr);
+  EXPECT_EQ(node[1].second, node_1.second);
+  EXPECT_EQ(node_1.second->key, 1);
 }
 
 TEST_F(NonEmptyTree, InsertNode){
-  std::pair <bool, void *> node_10 = tree.InsertNode(10);
-  ASSERT_TRUE(node_10.first);
-  ASSERT_NE(node_10.second, nullptr);
+  std::pair <bool, Node_t*> node_5 = tree.InsertNode(5);
+  EXPECT_TRUE(node_5.first);
+  ASSERT_NE(node_5.second, nullptr);
+  EXPECT_EQ(node_5.second->key, 5);
 }
 
-TEST_F(NonEmptyTree, DeleteNonExistantNode){
-  EXPECT_FALSE(tree.DeleteNode(10));
+TEST_F(NonEmptyTree, DeleteNode_NonExistant){
+  EXPECT_FALSE(tree.DeleteNode(5));
 }
 
 TEST_F(NonEmptyTree, DeleteNode){
-  EXPECT_NE(tree.FindNode(1), nullptr);
+  ASSERT_NE(node[1].second, nullptr);
   EXPECT_TRUE(tree.DeleteNode(1));
   EXPECT_EQ(tree.FindNode(1), nullptr);
 }
 
-TEST_F(NonEmptyTree, FindNonExistantNode){
-  ASSERT_EQ(tree.FindNode(10), nullptr);
+TEST_F(NonEmptyTree, FindNode_NonExistant){
+  ASSERT_EQ(tree.FindNode(5), nullptr);
 }
 
 TEST_F(NonEmptyTree, FindNode){
-  ASSERT_EQ(tree.FindNode(1), node[0].second);
+  Node_t *node_1 = tree.FindNode(1);
+  ASSERT_EQ(node_1, node[1].second);
+  EXPECT_EQ(node_1->key, 1);
   /*
   std::pair <bool, void *> node_10 = tree.InsertNode(10);
   ASSERT_TRUE(node_10.first);
@@ -137,7 +154,46 @@ TEST_F(NonEmptyTree, FindNode){
 }
 
 
+TEST_F(TreeAxioms, Axiom1){
+  std::vector<Node_t *> leafNodes {};
+  tree.GetLeafNodes(leafNodes);
+  int i = 0;
+  for(auto node : leafNodes){
+    EXPECT_EQ(node->color, 1);
+    i++;
+  }
+  EXPECT_EQ(i, 4);
+}
 
+TEST_F(TreeAxioms, Axiom2){
+  std::vector<Node_t *> allNodes {};
+  tree.GetAllNodes(allNodes);
+  int i = 0, j = 0;
+  for(auto node : allNodes){
+    ASSERT_NE(node, nullptr);
+    if(node->color == 0){
+      EXPECT_EQ(node->pLeft->color, 1);
+      EXPECT_EQ(node->pRight->color, 1);
+      j++;
+    }
+    i++;
+  }
+  EXPECT_EQ(i, 7);
+  EXPECT_EQ(j, 2);
+}
 
+TEST_F(TreeAxioms, Axiom3){
+  std::vector<Node_t *> leafNodes {};
+  tree.GetLeafNodes(leafNodes);
+  for(auto node : leafNodes){
+    int i = 0;
+    auto tmp = node;
+    while(tmp != nullptr){
+      i++;
+      tmp = tmp->pParent;
+    }
+    EXPECT_EQ(i, 3);
+  }
+}
 
 /*** Konec souboru black_box_tests.cpp ***/
