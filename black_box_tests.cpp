@@ -63,11 +63,7 @@ protected:
 };
 
 /*
-TEST_F(EmptyTree, GetRoot){
-  EXPECT_EQ(tree.GetRoot(), nullptr);
-  BinaryTree();
-  EXPECT_EQ(tree.GetRoot(), nullptr);
-}
+ * EmptyTree tests
  */
 
 TEST_F(EmptyTree, InsertNode){
@@ -86,30 +82,7 @@ TEST_F(EmptyTree, FindNode){
 }
 
 /*
-TEST_F(EmptyTree, GetLeafNodes){
-  std::vector<Node_t *> outLeafNodes;
-  tree.GetLeafNodes(outLeafNodes);
-  EXPECT_EQ(&outLeafNodes[0], nullptr);
-}
-
-TEST_F(EmptyTree, GetAllNodes){
-  std::vector<Node_t *> outAllNodes;
-  tree.GetLeafNodes(outAllNodes);
-  EXPECT_EQ(&outAllNodes[0], nullptr);
-}
-
-TEST_F(EmptyTree, GetNonLeafNodes){
-  std::vector<Node_t *> outNonLeafNodes;
-  tree.GetLeafNodes(outNonLeafNodes);
-  EXPECT_EQ(&outNonLeafNodes[0], nullptr);
-}
- */
-
-
-/*
-TEST_F(NonEmptyTree, GetRoot){
-  EXPECT_NE(tree.GetRoot(), nullptr);
-}
+ * NonEmptyTree tests
  */
 
 TEST_F(NonEmptyTree, InsertNode_Existing){
@@ -145,54 +118,47 @@ TEST_F(NonEmptyTree, FindNode){
   Node_t *node_1 = tree.FindNode(1);
   ASSERT_EQ(node_1, node[1].second);
   EXPECT_EQ(node_1->key, 1);
-  /*
-  std::pair <bool, void *> node_10 = tree.InsertNode(10);
-  ASSERT_TRUE(node_10.first);
-  void *pNode_10 = node_10.second;
-  EXPECT_EQ(pNode_10, tree.FindNode(10));
-   */
 }
 
+/*
+ * TreeAxioms tests
+ */
 
 TEST_F(TreeAxioms, Axiom1){
   std::vector<Node_t *> leafNodes {};
   tree.GetLeafNodes(leafNodes);
-  int i = 0;
-  for(auto node : leafNodes){
+  for(auto node : leafNodes)
     EXPECT_EQ(node->color, 1);
-    i++;
-  }
-  EXPECT_EQ(i, 4);
 }
 
 TEST_F(TreeAxioms, Axiom2){
   std::vector<Node_t *> allNodes {};
   tree.GetAllNodes(allNodes);
-  int i = 0, j = 0;
   for(auto node : allNodes){
     ASSERT_NE(node, nullptr);
     if(node->color == 0){
       EXPECT_EQ(node->pLeft->color, 1);
       EXPECT_EQ(node->pRight->color, 1);
-      j++;
     }
-    i++;
   }
-  EXPECT_EQ(i, 7);
-  EXPECT_EQ(j, 2);
 }
 
 TEST_F(TreeAxioms, Axiom3){
   std::vector<Node_t *> leafNodes {};
   tree.GetLeafNodes(leafNodes);
+  bool init = false;
+  int refVal = 0;
   for(auto node : leafNodes){
-    int i = 0;
+    int curVal = 0;
     auto tmp = node;
     while(tmp != nullptr){
-      i++;
+      if(!init)
+        refVal++;
+      curVal++;
       tmp = tmp->pParent;
     }
-    EXPECT_EQ(i, 3);
+    EXPECT_EQ(refVal, curVal);
+    init = true;
   }
 }
 
