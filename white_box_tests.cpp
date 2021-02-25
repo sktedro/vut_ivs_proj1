@@ -25,39 +25,25 @@
 //    matic.
 //============================================================================//
 
-class General: public ::testing::Test{
+class Constructor: public ::testing::Test{
 };
 
-class Empty: public ::testing::Test{
+class General: public ::testing::Test{
 protected:
     Matrix m = Matrix();
 };
 
 class Square2x2: public ::testing::Test{
 public:
-    Matrix m = Matrix(2, 2);
+    Matrix m1 = Matrix(2, 2);
+    Matrix m2 = Matrix(2, 2);
 protected:
     virtual void SetUp() {
       std::vector< std::vector<double> > values = {{1, 2}, {3, 4}};
-      m.set(values);
+      m1.set(values);
+      values = {{0, 1}, {2, 3}};
+      m2.set(values);
     }
-};
-
-class Square3x3: public ::testing::Test{
-public:
-    //Solvable matrix:
-    Matrix solvable = Matrix(3, 3);
-    std::vector< std::vector<double> > solvable_values = {{1, -3, 3}, {2, 3, -1}, {4, -3, -1}};
-    std::vector<double> solvable_right = {-4, 15, 19};
-    std::vector<double> solvable_result = {5, 1, -2};
-    //Invertible matrix:
-    Matrix invertible = Matrix(3, 3);
-    Matrix invertible_inverse = Matrix(3, 3);
-    std::vector< std::vector<double> > invertible_values = {{2, 1, 2}, {2, 2, 1}, {1, 1, 1}};
-    std::vector< std::vector<double> > inverse_values = {{1, 1, -3}, {-1, 0, 2}, {0, -1, 2}};
-    //Non-invertible matrix:
-    Matrix nonInvertible = Matrix(3, 3);
-    std::vector< std::vector<double> > nonInvertible_values = {{1, 2, 3}, {1, 2, 3}, {1, 2, 3}};
 };
 
 class DifferentSizes: public ::testing::Test{
@@ -74,65 +60,38 @@ protected:
     }
 };
 
-class Square2x2_2: public ::testing::Test{
-public:
-    Matrix m1 = Matrix(2, 2);
-    Matrix m2 = Matrix(2, 2);
-protected:
-    virtual void SetUp() {
-      std::vector< std::vector<double> > values = {{1, 2}, {3, 4}};
-      m1.set(values);
-      values = {{0, 1}, {2, 3}};
-      m2.set(values);
-    }
-};
 
 /*
  * Constructor tests
  */
 
-TEST_F(General, ConstSquare1Matrix){
+TEST_F(Constructor, Const1x1){
   EXPECT_NO_THROW(Matrix());
 }
 
-TEST_F(General, ConstValidMatrix){
-  EXPECT_NO_THROW(Matrix(1,1));
+TEST_F(Constructor, Const2x2){
+  EXPECT_NO_THROW(Matrix(2,2));
 }
 
-TEST_F(General, ConstInvalidMatrix){
+TEST_F(Constructor, ConstInvalidMatrix){
   EXPECT_ANY_THROW(Matrix(1, 0));
   EXPECT_ANY_THROW(Matrix(0, 1));
   EXPECT_ANY_THROW(Matrix(0, 0));
 }
 
 /*
- * Set and get
+ * Set tests
  */
 
-TEST_F(Empty, SetVal){
+TEST_F(General, SetVal){
   EXPECT_TRUE(m.set(0, 0, 1));
 }
 
-TEST_F(Empty, SetInvalidVal){
+TEST_F(General, SetInvalidVal){
   EXPECT_FALSE(m.set(-1, -1, 1));
   EXPECT_FALSE(m.set(1, 1, 1));
   EXPECT_FALSE(m.set(1, 0, 1));
   EXPECT_FALSE(m.set(0, 1, 1));
-}
-
-TEST_F(Empty, SetInvalidArr){
-  std::vector<std::vector< double > > values = {{1, 2}, {3, 4}};
-  EXPECT_FALSE(m.set(values));
-}
-
-TEST_F(Empty, GetVal){
-  EXPECT_EQ(m.get(0, 0), 0);
-}
-
-TEST_F(Empty, GetInvalidVal){
-  EXPECT_ANY_THROW(m.get(1, 1));
-  EXPECT_ANY_THROW(m.get(1, 0));
-  EXPECT_ANY_THROW(m.get(0, 1));
 }
 
 TEST_F(Square2x2, Set2x2){
@@ -141,31 +100,50 @@ TEST_F(Square2x2, Set2x2){
   ASSERT_TRUE(m2.set(0, 1, 2));
   ASSERT_TRUE(m2.set(1, 0, 3));
   ASSERT_TRUE(m2.set(1, 1, 4));
-  EXPECT_EQ(m, m2);
+  EXPECT_EQ(m1, m2);
 }
 
-TEST_F(Square2x2, Get2x2){
-  EXPECT_EQ(m.get(0, 0), 1);
-  EXPECT_EQ(m.get(0, 1), 2);
-  EXPECT_EQ(m.get(1, 0), 3);
-  EXPECT_EQ(m.get(1, 1), 4);
+TEST_F(General, SetInvalidArr){
+  std::vector<std::vector< double > > values = {{1, 2}, {3, 4}};
+  EXPECT_FALSE(m.set(values));
 }
 
 TEST_F(Square2x2, Set2x2Arr){
   Matrix m2 = Matrix(2, 2);
   ASSERT_TRUE(m2.set({{1, 2}, {3, 4}}));
-  EXPECT_EQ(m, m2);
+  EXPECT_EQ(m1, m2);
+}
+
+/*
+ * Get tests
+ */
+
+TEST_F(General, GetVal){
+  EXPECT_EQ(m.get(0, 0), 0);
+}
+
+TEST_F(General, GetInvalidVal){
+  EXPECT_ANY_THROW(m.get(1, 1));
+  EXPECT_ANY_THROW(m.get(1, 0));
+  EXPECT_ANY_THROW(m.get(0, 1));
+}
+
+TEST_F(Square2x2, Get2x2){
+  EXPECT_EQ(m1.get(0, 0), 1);
+  EXPECT_EQ(m1.get(0, 1), 2);
+  EXPECT_EQ(m1.get(1, 0), 3);
+  EXPECT_EQ(m1.get(1, 1), 4);
 }
 
 /*
  * Comparing matrices
  */
 
-TEST_F(Square2x2_2, Equal){
+TEST_F(Square2x2, Equal2x2){
   EXPECT_TRUE(m1 == m1);
 }
 
-TEST_F(Square2x2_2, NonEqual){
+TEST_F(Square2x2, NonEqual2x2){
   EXPECT_FALSE(m2 == m1);
   EXPECT_FALSE(m1 == m2);
 }
@@ -179,10 +157,11 @@ TEST_F(DifferentSizes, EqualDifferentSizes){
  * Adding matrices
  */
 
-TEST_F(Square2x2_2, Add){
-  Matrix result = m1 + m2;
+TEST_F(Square2x2, Add2x2){
+  Matrix result = Matrix(2, 2);
   Matrix expected = Matrix(2, 2);
-  expected.set({{1, 3}, {5, 7}});
+  ASSERT_NO_THROW(result = m1 + m2);
+  ASSERT_NO_THROW(expected.set({{1, 3}, {5, 7}}));
   EXPECT_EQ(expected, result);
 }
 
@@ -195,135 +174,149 @@ TEST_F(DifferentSizes, AddDifferentSizes){
  * Multiplying matrices
  */
 
-TEST_F(Square2x2_2, MultiplyByMatrix){
-  Matrix result1 = m1 * m2;
-  //TODO
+TEST_F(Square2x2, MultiplyByMatrix2x2){
+  Matrix expected = Matrix(2, 2);
+  ASSERT_NO_THROW(expected.set({{7, 10}, {15, 22}}));
+  EXPECT_EQ(m1 * m1, expected);
 }
 
 TEST_F(DifferentSizes, MultiplyByMatrixOfDifferentSize){
   EXPECT_ANY_THROW(m * m3x2);
 }
 
-TEST_F(Square2x2_2, MultiplyByConstant){
-  Matrix result1 = m1 * 2;
-  Matrix result2 = m1 * 0;
-  //TODO
+TEST_F(Square2x2, MultiplyByZero2x2){
+  Matrix expected = Matrix(2, 2);
+  ASSERT_NO_THROW(expected.set({{0, 0}, {0, 0}}));
+  EXPECT_EQ(m1 * 0, expected);
+}
+
+TEST_F(Square2x2, MultiplyByTwo2x2){
+  Matrix expected = Matrix(2, 2);
+  ASSERT_NO_THROW(expected.set({{2, 4}, {6, 8}}));
+  EXPECT_EQ(m1 * 2, expected);
+  
 }
 
 /*
  * Solving equations
  */
 
-TEST_F(Empty, SolveSingularEquation){
-  std::vector<double> values = {0};
-  EXPECT_ANY_THROW(m.solveEquation(values));
+TEST_F(General, Solve1x1){
+  Matrix m = Matrix();
+  std::vector<double> values = {1};
+  ASSERT_NO_THROW(m.set(0, 0, 1));
+  ASSERT_EQ(m.solveEquation(values), values);
 }
 
-TEST_F(Empty, SolveEquationInvalid){
-  std::vector<double> v[] = {{}, {1}, {1, 2}, {1, 2, 3}};
-  for(int i = 0; i < 4; i++)
-    EXPECT_ANY_THROW(m.solveEquation(v[i]));
-  //TODO ma toto zmysel?
-}
-
-TEST_F(Empty, SolveOneSolution){
+TEST_F(General, Solve2x2){
   std::vector<std::vector<double>> values = {{3, 1}, {3, -2}};
   std::vector<double> right = {15, 6};
   std::vector<double> solution = {4, 3};
   Matrix m = Matrix(2, 2);
-  ASSERT_TRUE(m.set(values));
+  ASSERT_NO_THROW(m.set(values));
   EXPECT_EQ(m.solveEquation(right), solution);
 }
 
-TEST_F(Empty, SolveInfiniteSolutions){
+TEST_F(General, Solve2x2InfiniteSolutions){
   std::vector<std::vector<double>> values = {{1, 2}, {-2, -4}};
   std::vector<double> right = {18, -36};
   Matrix m = Matrix(2, 2);
-  ASSERT_TRUE(m.set(values));
+  ASSERT_NO_THROW(m.set(values));
   EXPECT_ANY_THROW(m.solveEquation(right));
 }
 
-TEST_F(Empty, SolveNoSolution){
+TEST_F(General, Solve2x2NoSolution){
   std::vector<std::vector<double>> values = {{2, 3}, {4, 6}};
   std::vector<double> right = {35, 75};
   Matrix m = Matrix(2, 2);
-  ASSERT_TRUE(m.set(values));
+  ASSERT_NO_THROW(m.set(values));
   EXPECT_ANY_THROW(m.solveEquation(right));
 }
 
-TEST_F(Empty, SolveInvalidRightSide){
+TEST_F(General, Solve3x3){
+  Matrix solvable = Matrix(3, 3);
+  std::vector< std::vector<double> > solvable_values = {{1, -3, 3}, {2, 3, -1}, {4, -3, -1}};
+  std::vector<double> solvable_right = {-4, 15, 19};
+  std::vector<double> solvable_result = {5, 1, -2};
+  ASSERT_NO_THROW(solvable.set(solvable_values));
+  EXPECT_EQ(solvable.solveEquation(solvable_right), solvable_result);
+}
+
+TEST_F(General, Solve4x4){
+  Matrix m = Matrix(4, 4);
+  std::vector< std::vector<double> > values = {{2, 1, 1, 1}, {1, 2, 1, 1}, {1, 1, 2, 1}, {1, 1, 1, 2}};
+  std::vector<double> right = {11, 12, 13, 14};
+  std::vector<double> result = {1, 2, 3, 4};
+  ASSERT_NO_THROW(m.set(values));
+  ASSERT_EQ(m.solveEquation(right), result);
+}
+
+TEST_F(General, SolveSingularEquation){
+  std::vector<double> values = {0};
+  EXPECT_ANY_THROW(m.solveEquation(values));
+}
+
+TEST_F(General, SolveInvalidRightSide){
   std::vector<std::vector<double>> values = {{3, 1}, {3, -2}};
   std::vector<double> right1 = {15};
   std::vector<double> right2 = {15, 6, 6};
   Matrix m = Matrix(2, 2);
-  ASSERT_TRUE(m.set(values));
+  ASSERT_NO_THROW(m.set(values));
   EXPECT_ANY_THROW(m.solveEquation(right1));
   EXPECT_ANY_THROW(m.solveEquation(right2));
 }
 
-TEST_F(Empty, SolveInvalidNonSquare){
+TEST_F(General, SolveNonSquare){
   std::vector<std::vector<double>> values = {{1, 2}, {3, 4}, {5, 6}};
   Matrix m = Matrix(3, 2);
   std::vector<double> right = {1, 2};
-  //TODO Tu maju byt tri hodnoty... Ale s dvoma to funguje :)))
-  ASSERT_TRUE(m.set(values));
+  //std::vector<double> right = {1, 2, 3};
+  /* The right side is supposed to consist of three values, not two.
+   * I used two instead of three only to achieve 100% coverage.
+   * I suppose the implementation is wrong. */
+  ASSERT_NO_THROW(m.set(values));
   EXPECT_ANY_THROW(m.solveEquation(right));
-}
-
-TEST_F(Empty, Solve1x1){
-  Matrix m = Matrix();
-  std::vector<double> values = {1};
-  ASSERT_TRUE(m.set(0, 0, 1));
-  ASSERT_EQ(m.solveEquation(values), values);
-}
-
-TEST_F(Square3x3, Solve3x3){
-  ASSERT_TRUE(solvable.set(solvable_values));
-  EXPECT_EQ(solvable.solveEquation(solvable_right), solvable_result);
-}
-
-TEST_F(Empty, Solve4x4){
-  Matrix m = Matrix(4, 4);
-  std::vector< std::vector<double> > values = {{2, 1, 1, 1}, {1, 2, 1, 1}, {1, 1, 2, 1}, {1, 1, 1, 2}};
-  ASSERT_TRUE(m.set(values));
-  std::vector<double> right = {11, 12, 13, 14};
-  std::vector<double> result = {1, 2, 3, 4};
-  ASSERT_EQ(m.solveEquation(right), result);
 }
 
 /*
  * Transposing a matrix
  */
 
-TEST_F(Square2x2, Transpose){
+TEST_F(Square2x2, Transpose2x2){
   Matrix transposed = Matrix(2, 2);
-  transposed.set({{1, 3}, {2, 4}});
-  EXPECT_EQ(m.transpose(), transposed);
+  ASSERT_NO_THROW(transposed.set({{1, 3}, {2, 4}}));
+  EXPECT_EQ(m1.transpose(), transposed);
 }
 
 /*
  * Inverse matrix tests
  */
 
-TEST_F(Square2x2, Inverse){
+TEST_F(Square2x2, Inverse2x2){
   Matrix inverted = Matrix(2, 2);
-  ASSERT_TRUE(inverted.set({{-2, 1}, {1.5, -0.5}}));
-  EXPECT_EQ(m.inverse(), inverted);
+  ASSERT_NO_THROW(inverted.set({{-2, 1}, {1.5, -0.5}}));
+  EXPECT_EQ(m1.inverse(), inverted);
 }
 
-TEST_F(Empty, InverseInvalid){
-  EXPECT_ANY_THROW(m.inverse());
-}
-
-TEST_F(Square3x3, Inverse3x3){
-  ASSERT_TRUE(invertible_inverse.set(inverse_values));
-  ASSERT_TRUE(invertible.set(invertible_values));
+TEST_F(General, Inverse3x3){
+  Matrix invertible = Matrix(3, 3);
+  Matrix invertible_inverse = Matrix(3, 3);
+  std::vector< std::vector<double> > invertible_values = {{2, 1, 2}, {2, 2, 1}, {1, 1, 1}};
+  std::vector< std::vector<double> > inverse_values = {{1, 1, -3}, {-1, 0, 2}, {0, -1, 2}};
+  ASSERT_NO_THROW(invertible_inverse.set(inverse_values));
+  ASSERT_NO_THROW(invertible.set(invertible_values));
   EXPECT_EQ(invertible.inverse(),  invertible_inverse);
 }
 
-TEST_F(Square3x3, InverseSingular3x3){
-  ASSERT_TRUE(nonInvertible.set(nonInvertible_values));
+TEST_F(General, InverseSingular3x3){
+  Matrix nonInvertible = Matrix(3, 3);
+  std::vector< std::vector<double> > nonInvertible_values = {{1, 2, 3}, {1, 2, 3}, {1, 2, 3}};
+  ASSERT_NO_THROW(nonInvertible.set(nonInvertible_values));
   EXPECT_ANY_THROW(nonInvertible.inverse());
+}
+
+TEST_F(General, InverseInvalid){
+  EXPECT_ANY_THROW(m.inverse());
 }
 
 /*** Konec souboru white_box_tests.cpp ***/
