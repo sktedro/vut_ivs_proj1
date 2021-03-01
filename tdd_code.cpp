@@ -3,12 +3,12 @@
 // Purpose:     Test Driven Development - priority queue code
 //
 // $NoKeywords: $ivs_project_1 $tdd_code.cpp
-// $Author:     PATRIK SKALOŠ <xskalo01@stud.fit.vutbr.cz>
-// $Date:       $2021-02-22
+// $Author:     PATRIK SKALOS <xskalo01@stud.fit.vutbr.cz>
+// $Date:       $2021-02-25
 //============================================================================//
 /**
  * @file tdd_code.cpp
- * @author PATRIK SKALOŠ
+ * @author PATRIK SKALOS
  * 
  * @brief Implementace metod tridy prioritni fronty.
  */
