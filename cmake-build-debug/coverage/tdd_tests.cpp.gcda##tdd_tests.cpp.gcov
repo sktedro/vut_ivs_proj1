@@ -1,0 +1,727 @@
+        -:    0:Source:/home/tedro/Desktop/semester_2/IVS/proj1/assignment/tdd_tests.cpp
+        -:    0:Graph:/home/tedro/Desktop/semester_2/IVS/proj1/assignment/cmake-build-debug/CMakeFiles/tdd_test.dir/tdd_tests.cpp.gcno
+        -:    0:Data:/home/tedro/Desktop/semester_2/IVS/proj1/assignment/cmake-build-debug/CMakeFiles/tdd_test.dir/tdd_tests.cpp.gcda
+        -:    0:Runs:1
+        -:    1://======== Copyright (c) 2021, FIT VUT Brno, All rights reserved. ============//
+        -:    2://
+        -:    3:// Purpose:     Test Driven Development - priority queue test suite
+        -:    4://
+        -:    5:// $NoKeywords: $ivs_project_1 $tdd_tests.cpp
+        -:    6:// $Author:     JMENO PRIJMENI <xlogin00@stud.fit.vutbr.cz>
+        -:    7:// $Date:       $2021-01-04
+        -:    8://============================================================================//
+        -:    9:/**
+        -:   10: * @file tdd_tests.cpp
+        -:   11: * @author JMENO PRIJMENI
+        -:   12: * 
+        -:   13: * @brief Testy implementace prioritni fronty.
+        -:   14: */
+        -:   15:
+        -:   16:#include "gtest/gtest.h"
+        -:   17:#include "tdd_code.h"
+        -:   18:
+        -:   19:class NonEmptyQueue : public ::testing::Test
+        -:   20:{
+        -:   21:protected:
+    #####:   22:    virtual void SetUp() {
+    #####:   23:        int values[] = { 10, 85, 15, 70, 20, 60, 30, 50, 65, 80, 90, 40, 5, 55 };
+        -:   24:
+    #####:   25:        for(int i = 0; i < 14; ++i)
+    %%%%%:   25-block  0
+    %%%%%:   25-block  1
+    %%%%%:   25-block  2
+    #####:   26:            queue.Insert(values[i]);
+    %%%%%:   26-block  0
+    #####:   27:    }
+    %%%%%:   27-block  0
+        -:   28:
+        -:   29:    PriorityQueue queue;
+        -:   30:};
+        -:   31:
+        -:   32:class EmptyQueue : public ::testing::Test
+        -:   33:{
+        -:   34:protected:
+        -:   35:    PriorityQueue queue;
+        -:   36:};
+        -:   37:
+    #####:   38:TEST_F(NonEmptyQueue, Insert)
+        -:   39:{
+    #####:   40:    queue.Insert(100);
+    #####:   41:    EXPECT_EQ(queue.GetHead()->value, 100);
+        -:   42:
+    #####:   43:    queue.Insert(0);
+    #####:   44:    EXPECT_EQ(queue.GetHead()->value, 100);
+    #####:   45:}
+------------------
+_ZN25NonEmptyQueue_Insert_TestC2Ev:
+    #####:   38:TEST_F(NonEmptyQueue, Insert)
+    %%%%%:   38-block  0
+------------------
+_ZN25NonEmptyQueue_Insert_TestD0Ev:
+    #####:   38:TEST_F(NonEmptyQueue, Insert)
+    %%%%%:   38-block  0
+------------------
+_ZN25NonEmptyQueue_Insert_TestD2Ev:
+    #####:   38:TEST_F(NonEmptyQueue, Insert)
+    %%%%%:   38-block  0
+------------------
+_ZN25NonEmptyQueue_Insert_Test8TestBodyEv:
+    #####:   38:TEST_F(NonEmptyQueue, Insert)
+        -:   39:{
+    #####:   40:    queue.Insert(100);
+    %%%%%:   40-block  0
+    #####:   41:    EXPECT_EQ(queue.GetHead()->value, 100);
+    %%%%%:   41-block  0
+    %%%%%:   41-block  1
+    %%%%%:   41-block  2
+    %%%%%:   41-block  3
+    %%%%%:   41-block  4
+    %%%%%:   41-block  5
+    %%%%%:   41-block  6
+    $$$$$:   41-block  7
+    $$$$$:   41-block  8
+    $$$$$:   41-block  9
+    $$$$$:   41-block 10
+    $$$$$:   41-block 11
+    $$$$$:   41-block 12
+        -:   42:
+    #####:   43:    queue.Insert(0);
+    #####:   44:    EXPECT_EQ(queue.GetHead()->value, 100);
+    %%%%%:   44-block  0
+    %%%%%:   44-block  1
+    %%%%%:   44-block  2
+    %%%%%:   44-block  3
+    %%%%%:   44-block  4
+    %%%%%:   44-block  5
+    %%%%%:   44-block  6
+    $$$$$:   44-block  7
+    $$$$$:   44-block  8
+    $$$$$:   44-block  9
+    $$$$$:   44-block 10
+    $$$$$:   44-block 11
+    $$$$$:   44-block 12
+    #####:   45:}
+------------------
+        -:   46:
+    #####:   47:TEST_F(NonEmptyQueue, RemoveAllBackward)
+        -:   48:{
+    #####:   49:    EXPECT_FALSE(queue.Remove(0));
+        -:   50:
+    #####:   51:    int values[] = { 5, 10, 15, 20, 30, 40, 50, 55, 60, 65, 70, 80, 85, 90 };
+    #####:   52:    for(int i = 0; i < 13; ++i)
+        -:   53:    {
+    #####:   54:        EXPECT_TRUE(queue.Remove(values[i]));
+    #####:   55:        EXPECT_EQ(queue.GetHead()->value, 90);
+        -:   56:    }
+        -:   57:
+    #####:   58:    queue.Remove(90);
+    #####:   59:    EXPECT_TRUE(queue.GetHead() == NULL);
+    #####:   60:}
+------------------
+_ZN36NonEmptyQueue_RemoveAllBackward_TestC2Ev:
+    #####:   47:TEST_F(NonEmptyQueue, RemoveAllBackward)
+    %%%%%:   47-block  0
+------------------
+_ZN36NonEmptyQueue_RemoveAllBackward_TestD0Ev:
+    #####:   47:TEST_F(NonEmptyQueue, RemoveAllBackward)
+    %%%%%:   47-block  0
+------------------
+_ZN36NonEmptyQueue_RemoveAllBackward_TestD2Ev:
+    #####:   47:TEST_F(NonEmptyQueue, RemoveAllBackward)
+    %%%%%:   47-block  0
+------------------
+_ZN36NonEmptyQueue_RemoveAllBackward_Test8TestBodyEv:
+    #####:   47:TEST_F(NonEmptyQueue, RemoveAllBackward)
+        -:   48:{
+    #####:   49:    EXPECT_FALSE(queue.Remove(0));
+    %%%%%:   49-block  0
+    %%%%%:   49-block  1
+    %%%%%:   49-block  2
+    %%%%%:   49-block  3
+    %%%%%:   49-block  4
+    %%%%%:   49-block  5
+    %%%%%:   49-block  6
+    %%%%%:   49-block  7
+    $$$$$:   49-block  8
+    $$$$$:   49-block  9
+    $$$$$:   49-block 10
+    $$$$$:   49-block 11
+    $$$$$:   49-block 12
+    $$$$$:   49-block 13
+    $$$$$:   49-block 14
+        -:   50:
+    #####:   51:    int values[] = { 5, 10, 15, 20, 30, 40, 50, 55, 60, 65, 70, 80, 85, 90 };
+    #####:   52:    for(int i = 0; i < 13; ++i)
+    %%%%%:   52-block  0
+        -:   53:    {
+    #####:   54:        EXPECT_TRUE(queue.Remove(values[i]));
+    %%%%%:   54-block  0
+    %%%%%:   54-block  1
+    %%%%%:   54-block  2
+    %%%%%:   54-block  3
+    %%%%%:   54-block  4
+    %%%%%:   54-block  5
+    %%%%%:   54-block  6
+    %%%%%:   54-block  7
+    $$$$$:   54-block  8
+    $$$$$:   54-block  9
+    $$$$$:   54-block 10
+    $$$$$:   54-block 11
+    $$$$$:   54-block 12
+    $$$$$:   54-block 13
+    $$$$$:   54-block 14
+    #####:   55:        EXPECT_EQ(queue.GetHead()->value, 90);
+    %%%%%:   55-block  0
+    %%%%%:   55-block  1
+    %%%%%:   55-block  2
+    %%%%%:   55-block  3
+    %%%%%:   55-block  4
+    %%%%%:   55-block  5
+    %%%%%:   55-block  6
+    $$$$$:   55-block  7
+    $$$$$:   55-block  8
+    $$$$$:   55-block  9
+    $$$$$:   55-block 10
+    $$$$$:   55-block 11
+    $$$$$:   55-block 12
+        -:   56:    }
+        -:   57:
+    #####:   58:    queue.Remove(90);
+    %%%%%:   58-block  0
+    #####:   59:    EXPECT_TRUE(queue.GetHead() == NULL);
+    %%%%%:   59-block  0
+    %%%%%:   59-block  1
+    %%%%%:   59-block  2
+    %%%%%:   59-block  3
+    %%%%%:   59-block  4
+    %%%%%:   59-block  5
+    %%%%%:   59-block  6
+    %%%%%:   59-block  7
+    $$$$$:   59-block  8
+    $$$$$:   59-block  9
+    $$$$$:   59-block 10
+    $$$$$:   59-block 11
+    $$$$$:   59-block 12
+    $$$$$:   59-block 13
+    $$$$$:   59-block 14
+    #####:   60:}
+------------------
+        -:   61:
+    #####:   62:TEST_F(NonEmptyQueue, RemoveAllForward)
+        -:   63:{
+    #####:   64:    EXPECT_FALSE(queue.Remove(0));
+        -:   65:
+    #####:   66:    int values[] = { 90, 85, 80, 70, 65, 60, 55, 50, 40, 30, 20, 15, 10, 5 };
+    #####:   67:    for(int i = 0; i < 13; ++i)
+        -:   68:    {
+    #####:   69:        EXPECT_TRUE(queue.Remove(values[i]));
+    #####:   70:        EXPECT_EQ(queue.GetHead()->value, values[i + 1]);
+        -:   71:    }
+        -:   72:
+    #####:   73:    queue.Remove(5);
+    #####:   74:    EXPECT_TRUE(queue.GetHead() == NULL);
+    #####:   75:}
+------------------
+_ZN35NonEmptyQueue_RemoveAllForward_TestC2Ev:
+    #####:   62:TEST_F(NonEmptyQueue, RemoveAllForward)
+    %%%%%:   62-block  0
+------------------
+_ZN35NonEmptyQueue_RemoveAllForward_TestD0Ev:
+    #####:   62:TEST_F(NonEmptyQueue, RemoveAllForward)
+    %%%%%:   62-block  0
+------------------
+_ZN35NonEmptyQueue_RemoveAllForward_TestD2Ev:
+    #####:   62:TEST_F(NonEmptyQueue, RemoveAllForward)
+    %%%%%:   62-block  0
+------------------
+_ZN35NonEmptyQueue_RemoveAllForward_Test8TestBodyEv:
+    #####:   62:TEST_F(NonEmptyQueue, RemoveAllForward)
+        -:   63:{
+    #####:   64:    EXPECT_FALSE(queue.Remove(0));
+    %%%%%:   64-block  0
+    %%%%%:   64-block  1
+    %%%%%:   64-block  2
+    %%%%%:   64-block  3
+    %%%%%:   64-block  4
+    %%%%%:   64-block  5
+    %%%%%:   64-block  6
+    %%%%%:   64-block  7
+    $$$$$:   64-block  8
+    $$$$$:   64-block  9
+    $$$$$:   64-block 10
+    $$$$$:   64-block 11
+    $$$$$:   64-block 12
+    $$$$$:   64-block 13
+    $$$$$:   64-block 14
+        -:   65:
+    #####:   66:    int values[] = { 90, 85, 80, 70, 65, 60, 55, 50, 40, 30, 20, 15, 10, 5 };
+    #####:   67:    for(int i = 0; i < 13; ++i)
+    %%%%%:   67-block  0
+        -:   68:    {
+    #####:   69:        EXPECT_TRUE(queue.Remove(values[i]));
+    %%%%%:   69-block  0
+    %%%%%:   69-block  1
+    %%%%%:   69-block  2
+    %%%%%:   69-block  3
+    %%%%%:   69-block  4
+    %%%%%:   69-block  5
+    %%%%%:   69-block  6
+    %%%%%:   69-block  7
+    $$$$$:   69-block  8
+    $$$$$:   69-block  9
+    $$$$$:   69-block 10
+    $$$$$:   69-block 11
+    $$$$$:   69-block 12
+    $$$$$:   69-block 13
+    $$$$$:   69-block 14
+    #####:   70:        EXPECT_EQ(queue.GetHead()->value, values[i + 1]);
+    %%%%%:   70-block  0
+    %%%%%:   70-block  1
+    %%%%%:   70-block  2
+    %%%%%:   70-block  3
+    %%%%%:   70-block  4
+    %%%%%:   70-block  5
+    %%%%%:   70-block  6
+    $$$$$:   70-block  7
+    $$$$$:   70-block  8
+    $$$$$:   70-block  9
+    $$$$$:   70-block 10
+    $$$$$:   70-block 11
+        -:   71:    }
+        -:   72:
+    #####:   73:    queue.Remove(5);
+    %%%%%:   73-block  0
+    #####:   74:    EXPECT_TRUE(queue.GetHead() == NULL);
+    %%%%%:   74-block  0
+    %%%%%:   74-block  1
+    %%%%%:   74-block  2
+    %%%%%:   74-block  3
+    %%%%%:   74-block  4
+    %%%%%:   74-block  5
+    %%%%%:   74-block  6
+    %%%%%:   74-block  7
+    $$$$$:   74-block  8
+    $$$$$:   74-block  9
+    $$$$$:   74-block 10
+    $$$$$:   74-block 11
+    $$$$$:   74-block 12
+    $$$$$:   74-block 13
+    $$$$$:   74-block 14
+    #####:   75:}
+------------------
+        -:   76:
+    #####:   77:TEST_F(NonEmptyQueue, Find)
+        -:   78:{
+    #####:   79:    int values[] = { 5, 10, 15, 20, 30, 40, 50, 55, 60, 65, 70, 80, 85, 90 };
+    #####:   80:    for(int i = 0; i < 14; ++i)
+        -:   81:    {
+    #####:   82:        PriorityQueue::Element_t *pElem = queue.Find(values[i]);
+    #####:   83:        ASSERT_TRUE(pElem != NULL);
+    #####:   84:        EXPECT_EQ(pElem->value, values[i]);
+        -:   85:
+    #####:   86:        EXPECT_TRUE(pElem->pNext == NULL || pElem->pNext->value <= pElem->value);
+        -:   87:    }
+        -:   88:
+    #####:   89:    EXPECT_TRUE(queue.Find(0) == NULL);
+        -:   90:}
+------------------
+_ZN23NonEmptyQueue_Find_TestC2Ev:
+    #####:   77:TEST_F(NonEmptyQueue, Find)
+    %%%%%:   77-block  0
+------------------
+_ZN23NonEmptyQueue_Find_TestD0Ev:
+    #####:   77:TEST_F(NonEmptyQueue, Find)
+    %%%%%:   77-block  0
+------------------
+_ZN23NonEmptyQueue_Find_TestD2Ev:
+    #####:   77:TEST_F(NonEmptyQueue, Find)
+    %%%%%:   77-block  0
+------------------
+_ZN23NonEmptyQueue_Find_Test8TestBodyEv:
+    #####:   77:TEST_F(NonEmptyQueue, Find)
+        -:   78:{
+    #####:   79:    int values[] = { 5, 10, 15, 20, 30, 40, 50, 55, 60, 65, 70, 80, 85, 90 };
+    #####:   80:    for(int i = 0; i < 14; ++i)
+    %%%%%:   80-block  0
+    %%%%%:   80-block  1
+        -:   81:    {
+    #####:   82:        PriorityQueue::Element_t *pElem = queue.Find(values[i]);
+    %%%%%:   82-block  0
+    #####:   83:        ASSERT_TRUE(pElem != NULL);
+    %%%%%:   83-block  0
+    %%%%%:   83-block  1
+    %%%%%:   83-block  2
+    %%%%%:   83-block  3
+    %%%%%:   83-block  4
+    %%%%%:   83-block  5
+    $$$$$:   83-block  6
+    $$$$$:   83-block  7
+    $$$$$:   83-block  8
+    $$$$$:   83-block  9
+    $$$$$:   83-block 10
+    $$$$$:   83-block 11
+    $$$$$:   83-block 12
+    #####:   84:        EXPECT_EQ(pElem->value, values[i]);
+    %%%%%:   84-block  0
+    %%%%%:   84-block  1
+    %%%%%:   84-block  2
+    %%%%%:   84-block  3
+    %%%%%:   84-block  4
+    %%%%%:   84-block  5
+    %%%%%:   84-block  6
+    $$$$$:   84-block  7
+    $$$$$:   84-block  8
+    $$$$$:   84-block  9
+    $$$$$:   84-block 10
+    $$$$$:   84-block 11
+        -:   85:
+    #####:   86:        EXPECT_TRUE(pElem->pNext == NULL || pElem->pNext->value <= pElem->value);
+    %%%%%:   86-block  0
+    %%%%%:   86-block  1
+    %%%%%:   86-block  2
+    %%%%%:   86-block  3
+    %%%%%:   86-block  4
+    %%%%%:   86-block  5
+    %%%%%:   86-block  6
+    %%%%%:   86-block  7
+    %%%%%:   86-block  8
+    %%%%%:   86-block  9
+    $$$$$:   86-block 10
+    $$$$$:   86-block 11
+    $$$$$:   86-block 12
+    $$$$$:   86-block 13
+    $$$$$:   86-block 14
+    $$$$$:   86-block 15
+    $$$$$:   86-block 16
+        -:   87:    }
+        -:   88:
+    #####:   89:    EXPECT_TRUE(queue.Find(0) == NULL);
+    %%%%%:   89-block  0
+    %%%%%:   89-block  1
+    %%%%%:   89-block  2
+    %%%%%:   89-block  3
+    %%%%%:   89-block  4
+    %%%%%:   89-block  5
+    %%%%%:   89-block  6
+    %%%%%:   89-block  7
+    $$$$$:   89-block  8
+    $$$$$:   89-block  9
+    $$$$$:   89-block 10
+    $$$$$:   89-block 11
+    $$$$$:   89-block 12
+    $$$$$:   89-block 13
+    $$$$$:   89-block 14
+        -:   90:}
+------------------
+        -:   91:
+    #####:   92:TEST_F(NonEmptyQueue, Length)
+        -:   93:{
+    #####:   94:    EXPECT_EQ(queue.Length(), 14);
+        -:   95:
+    #####:   96:    queue.Insert(100);
+        -:   97:
+    #####:   98:    EXPECT_EQ(queue.Length(), 15);
+        -:   99:
+    #####:  100:    queue.Remove(100);
+        -:  101:
+    #####:  102:    EXPECT_EQ(queue.Length(), 14);
+    #####:  103:}
+------------------
+_ZN25NonEmptyQueue_Length_TestC2Ev:
+    #####:   92:TEST_F(NonEmptyQueue, Length)
+    %%%%%:   92-block  0
+------------------
+_ZN25NonEmptyQueue_Length_TestD0Ev:
+    #####:   92:TEST_F(NonEmptyQueue, Length)
+    %%%%%:   92-block  0
+------------------
+_ZN25NonEmptyQueue_Length_TestD2Ev:
+    #####:   92:TEST_F(NonEmptyQueue, Length)
+    %%%%%:   92-block  0
+------------------
+_ZN25NonEmptyQueue_Length_Test8TestBodyEv:
+    #####:   92:TEST_F(NonEmptyQueue, Length)
+        -:   93:{
+    #####:   94:    EXPECT_EQ(queue.Length(), 14);
+    %%%%%:   94-block  0
+    %%%%%:   94-block  1
+    %%%%%:   94-block  2
+    %%%%%:   94-block  3
+    %%%%%:   94-block  4
+    %%%%%:   94-block  5
+    %%%%%:   94-block  6
+    %%%%%:   94-block  7
+    $$$$$:   94-block  8
+    $$$$$:   94-block  9
+    $$$$$:   94-block 10
+    $$$$$:   94-block 11
+    $$$$$:   94-block 12
+    $$$$$:   94-block 13
+    $$$$$:   94-block 14
+        -:   95:
+    #####:   96:    queue.Insert(100);
+        -:   97:
+    #####:   98:    EXPECT_EQ(queue.Length(), 15);
+    %%%%%:   98-block  0
+    %%%%%:   98-block  1
+    %%%%%:   98-block  2
+    %%%%%:   98-block  3
+    %%%%%:   98-block  4
+    %%%%%:   98-block  5
+    %%%%%:   98-block  6
+    $$$$$:   98-block  7
+    $$$$$:   98-block  8
+    $$$$$:   98-block  9
+    $$$$$:   98-block 10
+    $$$$$:   98-block 11
+    $$$$$:   98-block 12
+    $$$$$:   98-block 13
+        -:   99:
+    #####:  100:    queue.Remove(100);
+        -:  101:
+    #####:  102:    EXPECT_EQ(queue.Length(), 14);
+    %%%%%:  102-block  0
+    %%%%%:  102-block  1
+    %%%%%:  102-block  2
+    %%%%%:  102-block  3
+    %%%%%:  102-block  4
+    %%%%%:  102-block  5
+    %%%%%:  102-block  6
+    $$$$$:  102-block  7
+    $$$$$:  102-block  8
+    $$$$$:  102-block  9
+    $$$$$:  102-block 10
+    $$$$$:  102-block 11
+    $$$$$:  102-block 12
+    $$$$$:  102-block 13
+    #####:  103:}
+------------------
+        -:  104:
+        -:  105:
+    #####:  106:TEST_F(EmptyQueue, Insert)
+        -:  107:{
+    #####:  108:    EXPECT_TRUE(queue.GetHead() == NULL);
+        -:  109:
+    #####:  110:    queue.Insert(0);
+    #####:  111:    ASSERT_TRUE(queue.GetHead() != NULL);
+    #####:  112:    EXPECT_EQ(queue.GetHead()->value, 0);
+        -:  113:
+    #####:  114:    queue.Insert(100);
+    #####:  115:    ASSERT_TRUE(queue.GetHead() != NULL);
+    #####:  116:    EXPECT_EQ(queue.GetHead()->value, 100);
+        -:  117:}
+------------------
+_ZN22EmptyQueue_Insert_TestC2Ev:
+    #####:  106:TEST_F(EmptyQueue, Insert)
+    %%%%%:  106-block  0
+------------------
+_ZN22EmptyQueue_Insert_TestD0Ev:
+    #####:  106:TEST_F(EmptyQueue, Insert)
+    %%%%%:  106-block  0
+------------------
+_ZN22EmptyQueue_Insert_TestD2Ev:
+    #####:  106:TEST_F(EmptyQueue, Insert)
+    %%%%%:  106-block  0
+------------------
+_ZN22EmptyQueue_Insert_Test8TestBodyEv:
+    #####:  106:TEST_F(EmptyQueue, Insert)
+        -:  107:{
+    #####:  108:    EXPECT_TRUE(queue.GetHead() == NULL);
+    %%%%%:  108-block  0
+    %%%%%:  108-block  1
+    %%%%%:  108-block  2
+    %%%%%:  108-block  3
+    %%%%%:  108-block  4
+    %%%%%:  108-block  5
+    %%%%%:  108-block  6
+    %%%%%:  108-block  7
+    $$$$$:  108-block  8
+    $$$$$:  108-block  9
+    $$$$$:  108-block 10
+    $$$$$:  108-block 11
+    $$$$$:  108-block 12
+    $$$$$:  108-block 13
+    $$$$$:  108-block 14
+        -:  109:
+    #####:  110:    queue.Insert(0);
+    #####:  111:    ASSERT_TRUE(queue.GetHead() != NULL);
+    %%%%%:  111-block  0
+    %%%%%:  111-block  1
+    %%%%%:  111-block  2
+    %%%%%:  111-block  3
+    %%%%%:  111-block  4
+    %%%%%:  111-block  5
+    $$$$$:  111-block  6
+    $$$$$:  111-block  7
+    $$$$$:  111-block  8
+    $$$$$:  111-block  9
+    $$$$$:  111-block 10
+    $$$$$:  111-block 11
+    $$$$$:  111-block 12
+    #####:  112:    EXPECT_EQ(queue.GetHead()->value, 0);
+    %%%%%:  112-block  0
+    %%%%%:  112-block  1
+    %%%%%:  112-block  2
+    %%%%%:  112-block  3
+    %%%%%:  112-block  4
+    %%%%%:  112-block  5
+    %%%%%:  112-block  6
+    %%%%%:  112-block  7
+    $$$$$:  112-block  8
+    $$$$$:  112-block  9
+    $$$$$:  112-block 10
+    $$$$$:  112-block 11
+    $$$$$:  112-block 12
+    $$$$$:  112-block 13
+        -:  113:
+    #####:  114:    queue.Insert(100);
+    #####:  115:    ASSERT_TRUE(queue.GetHead() != NULL);
+    %%%%%:  115-block  0
+    %%%%%:  115-block  1
+    %%%%%:  115-block  2
+    %%%%%:  115-block  3
+    %%%%%:  115-block  4
+    %%%%%:  115-block  5
+    $$$$$:  115-block  6
+    $$$$$:  115-block  7
+    $$$$$:  115-block  8
+    $$$$$:  115-block  9
+    $$$$$:  115-block 10
+    $$$$$:  115-block 11
+    $$$$$:  115-block 12
+    #####:  116:    EXPECT_EQ(queue.GetHead()->value, 100);
+    %%%%%:  116-block  0
+    %%%%%:  116-block  1
+    %%%%%:  116-block  2
+    %%%%%:  116-block  3
+    %%%%%:  116-block  4
+    %%%%%:  116-block  5
+    %%%%%:  116-block  6
+    %%%%%:  116-block  7
+    $$$$$:  116-block  8
+    $$$$$:  116-block  9
+    $$$$$:  116-block 10
+    $$$$$:  116-block 11
+    $$$$$:  116-block 12
+    $$$$$:  116-block 13
+        -:  117:}
+------------------
+        -:  118:
+    #####:  119:TEST_F(EmptyQueue, Remove)
+        -:  120:{
+    #####:  121:    EXPECT_FALSE(queue.Remove(0));
+    #####:  122:}
+------------------
+_ZN22EmptyQueue_Remove_TestC2Ev:
+    #####:  119:TEST_F(EmptyQueue, Remove)
+    %%%%%:  119-block  0
+------------------
+_ZN22EmptyQueue_Remove_TestD0Ev:
+    #####:  119:TEST_F(EmptyQueue, Remove)
+    %%%%%:  119-block  0
+------------------
+_ZN22EmptyQueue_Remove_TestD2Ev:
+    #####:  119:TEST_F(EmptyQueue, Remove)
+    %%%%%:  119-block  0
+------------------
+_ZN22EmptyQueue_Remove_Test8TestBodyEv:
+    #####:  119:TEST_F(EmptyQueue, Remove)
+        -:  120:{
+    #####:  121:    EXPECT_FALSE(queue.Remove(0));
+    %%%%%:  121-block  0
+    %%%%%:  121-block  1
+    %%%%%:  121-block  2
+    %%%%%:  121-block  3
+    %%%%%:  121-block  4
+    %%%%%:  121-block  5
+    %%%%%:  121-block  6
+    %%%%%:  121-block  7
+    $$$$$:  121-block  8
+    $$$$$:  121-block  9
+    $$$$$:  121-block 10
+    $$$$$:  121-block 11
+    $$$$$:  121-block 12
+    $$$$$:  121-block 13
+    $$$$$:  121-block 14
+    #####:  122:}
+------------------
+        -:  123:
+    #####:  124:TEST_F(EmptyQueue, Find)
+        -:  125:{
+    #####:  126:    EXPECT_TRUE(queue.Find(0) == NULL);
+    #####:  127:}
+------------------
+_ZN20EmptyQueue_Find_TestC2Ev:
+    #####:  124:TEST_F(EmptyQueue, Find)
+    %%%%%:  124-block  0
+------------------
+_ZN20EmptyQueue_Find_TestD0Ev:
+    #####:  124:TEST_F(EmptyQueue, Find)
+    %%%%%:  124-block  0
+------------------
+_ZN20EmptyQueue_Find_TestD2Ev:
+    #####:  124:TEST_F(EmptyQueue, Find)
+    %%%%%:  124-block  0
+------------------
+_ZN20EmptyQueue_Find_Test8TestBodyEv:
+    #####:  124:TEST_F(EmptyQueue, Find)
+        -:  125:{
+    #####:  126:    EXPECT_TRUE(queue.Find(0) == NULL);
+    %%%%%:  126-block  0
+    %%%%%:  126-block  1
+    %%%%%:  126-block  2
+    %%%%%:  126-block  3
+    %%%%%:  126-block  4
+    %%%%%:  126-block  5
+    %%%%%:  126-block  6
+    %%%%%:  126-block  7
+    $$$$$:  126-block  8
+    $$$$$:  126-block  9
+    $$$$$:  126-block 10
+    $$$$$:  126-block 11
+    $$$$$:  126-block 12
+    $$$$$:  126-block 13
+    $$$$$:  126-block 14
+    #####:  127:}
+------------------
+        -:  128:
+    #####:  129:TEST_F(EmptyQueue, Length)
+        -:  130:{
+    #####:  131:    EXPECT_EQ(queue.Length(), 0);
+    #####:  132:}
+------------------
+_ZN22EmptyQueue_Length_TestC2Ev:
+    #####:  129:TEST_F(EmptyQueue, Length)
+    %%%%%:  129-block  0
+------------------
+_ZN22EmptyQueue_Length_TestD0Ev:
+    #####:  129:TEST_F(EmptyQueue, Length)
+    %%%%%:  129-block  0
+------------------
+_ZN22EmptyQueue_Length_TestD2Ev:
+    #####:  129:TEST_F(EmptyQueue, Length)
+    %%%%%:  129-block  0
+------------------
+_ZN22EmptyQueue_Length_Test8TestBodyEv:
+    #####:  129:TEST_F(EmptyQueue, Length)
+        -:  130:{
+    #####:  131:    EXPECT_EQ(queue.Length(), 0);
+    %%%%%:  131-block  0
+    %%%%%:  131-block  1
+    %%%%%:  131-block  2
+    %%%%%:  131-block  3
+    %%%%%:  131-block  4
+    %%%%%:  131-block  5
+    %%%%%:  131-block  6
+    %%%%%:  131-block  7
+    $$$$$:  131-block  8
+    $$$$$:  131-block  9
+    $$$$$:  131-block 10
+    $$$$$:  131-block 11
+    $$$$$:  131-block 12
+    $$$$$:  131-block 13
+    $$$$$:  131-block 14
+    #####:  132:}
+------------------
+        -:  133:
+        -:  134:/*** Konec souboru tdd_tests.cpp ***/
